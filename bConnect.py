@@ -4,28 +4,24 @@ import base64
 
 
 class BConnect:
-
     def __init__(self, bms, user_name, password):
         self.bms = bms
         self.user_name = user_name
         self.password = password
 
-        self.bms_jobs_url = 'https://REPLACEME/bConnect/v1.0/jobs.json'.replace('REPLACEME', self.bms)
-        self.bms_job_instances_url = 'https://REPLACEME/bConnect/v1.0/jobinstances.json'.replace('REPLACEME', self.bms)
-        self.bms_endpoints_url = 'https://REPLACEME/bConnect/v1.0/endpoints.json'.replace('REPLACEME', self.bms)
-        self.bms_info_url = 'https://REPLACEME/bConnect/info.json'.replace('REPLACEME', self.bms)
-        self.bms_software_scan_rules_url = 'https://REPLACEME/bConnect/v1.0/softwarescanrules.xml'.replace('REPLACEME',
-                                                                                                           self.bms)
-        self.bms_endpoint_inv_software_url = 'https://REPLACEME/bConnect/v1.0/softwarescanrules.xml'.replace(
-            'REPLACEME', self.bms)
-
+        self.bms_jobs_url = 'https://%s/bConnect/v1.0/jobs.json' % self.bms
+        self.bms_job_instances_url = 'https://%s/bConnect/v1.0/jobinstances.json' % self.bms
+        self.bms_endpoints_url = 'https://%s/bConnect/v1.0/endpoints.json' % self.bms
+        self.bms_info_url = 'https://%s/bConnect/info.json' % self.bms
+        self.bms_software_scan_rules_url = 'https://%s/bConnect/v1.0/softwarescanrules.xml' % self.bms
+        self.bms_endpoint_inv_software_url = 'https://%s/bConnect/v1.0/softwarescanrules.xml' % self.bms
 
     def connect(self, url):
 
         request = urllib2.Request(url)
 
-        base64String = base64.encodestring('%s:%s' % (self.user_name, self.password)).replace('\n', '')
-        request.add_header('Authorization', 'Basic %s' % base64String)
+        base64string = base64.encodestring('%s:%s' % (self.user_name, self.password)).replace('\n', '')
+        request.add_header('Authorization', 'Basic %s' % base64string)
 
         result = urllib2.urlopen(request).read()
 
