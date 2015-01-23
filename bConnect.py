@@ -4,15 +4,16 @@ import base64
 
 
 class BConnect:
-    def __init__(self, bms, user_name, password):
+    def __init__(self, bms, port, user_name, password):
         self.bms = bms
         self.user_name = user_name
         self.password = password
+        self.port = port
 
-        self.bms_jobs_url = 'https://%s/bConnect/v1.0/jobs.json' % self.bms
+        self.bms_jobs_url = 'https://%s:%s/bConnect/v1.0/jobs.json' % (self.bms,self.port)
         self.bms_job_instances_url = 'https://%s/bConnect/v1.0/jobinstances.json' % self.bms
         self.bms_endpoints_url = 'https://%s/bConnect/v1.0/endpoints.json' % self.bms
-        self.bms_info_url = 'https://%s/bConnect/info.json' % self.bms
+        self.bms_info_url = 'https://%s:%s/bConnect/info.json' % (self.bms,self.port)
         self.bms_software_scan_rules_url = 'https://%s/bConnect/v1.0/softwarescanrules.xml' % self.bms
         self.bms_endpoint_inv_software_url = 'https://%s/bConnect/v1.0/softwarescanrules.xml' % self.bms
 
