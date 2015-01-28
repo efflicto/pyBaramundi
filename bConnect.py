@@ -70,7 +70,7 @@ class BConnect:
         #see get_unique_status_text() method to find out whats your StateText to match
         ERR_DEF = [
             'Fehler',
-            'keine Verbindung',
+            #'keine Verbindung', #temp removed, it's a normal error when clients not online
             'rungstimeout',
             'fehlgeschlagen',
             'keine ausf',
