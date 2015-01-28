@@ -16,6 +16,7 @@ class BConnect:
         self.bms_info_url = 'https://%s:%s/bConnect/info.json' % (self.bms,self.port)
         self.bms_software_scan_rules_url = 'https://%s/bConnect/v1.0/softwarescanrules.xml' % self.bms
         self.bms_endpoint_inv_software_url = 'https://%s/bConnect/v1.0/softwarescanrules.xml' % self.bms
+        self.bms_search_url = 'https://%s/bConnect/v1.0/search.json' % self.bms
 
     def connect(self, url):
 
@@ -59,6 +60,14 @@ class BConnect:
                 break
 
         return x
+
+    def get_jobs_from_keyword(self,keyword):
+
+        return self.connect(self.bms_search_url+'?type=job&term=%s' % keyword)
+
+
+
+
 
     ###Client methods
 
@@ -108,9 +117,43 @@ class BConnect:
 
         return len(self.connect(self.bms_endpoints_url))
 
+    def get_client_count_active(self):
+
+        return len(self.get_clients_active())
+
+    def get_client_count_inactive(self):
+
+        return len(self.get_clients_inactive())
+
     def get_clients_active(self):
-        #not implemented yet.....
-        pass
+
+        all_clients = self.connect(self.bms_endpoints_url)
+        inactive_clients = self.get_clients_inactive() #Please look at the comment from this method
+        active_clients = []
+        inactive_client_ids =[]
+
+        for n in inactive_clients:
+            inactive_client_ids.append(n['Id'])
+
+        for n in all_clients:
+            if n['Id'] not in inactive_client_ids:
+                active_clients.append(n)
+
+        return active_clients
+
+    def get_clients_inactive(self):
+
+        #We've defined an extra variable with "Deaktiviert"
+        #To use that method, you have to define this or simliar too
+        #
+        inactive_string = 'Deaktiviert'
+
+        return self.connect(self.bms_search_url+'?type=endpoint&term=%s' %inactive_string)
+
+    def get_clients_from_keyword(self,keyword): #You can search mostly everything with this method
+
+            return self.connect(self.bms_search_url+'?type=endpoint&term=%s' %keyword)
+
 
 
 
