@@ -1,0 +1,2 @@
+#!/bin/sh
+python /usr/share/munin/plugins/clients_active.py $1

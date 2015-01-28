@@ -1,0 +1,2 @@
+#!/bin/sh
+python /usr/share/munin/plugins/running_jobs.py $1

@@ -30,8 +30,6 @@ class BConnect:
 
         return json.loads(result)
 
-        pass
-
     def test_connection(self):
 
         if 'baramundi software AG' in self.connect(self.bms_info_url)['Company']:
@@ -191,7 +189,7 @@ class BConnect:
 
     def get_client_count_active(self):
 
-        return len(self.get_clients_active())
+        return len(json.loads(self.get_clients_active()))
 
     def get_client_count_inactive(self):
 
